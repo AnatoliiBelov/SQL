@@ -1,10 +1,25 @@
+import model.City;
+import model.Employee;
+import service.EmployeeDAO;
+import service.EmployeeDAOImpl;
+
 import java.sql.*;
 
 public class Application {
     public static void main(String[] args) {
+        connection();
+        EmployeeDAO dao = new EmployeeDAOImpl();
+        Employee employee = new Employee("Ivan", "Leschenko", "male", 35, new City(1, "Москва"));
+        dao.addEmployee(employee);
+        dao.updateEmployee("last_name", "Levchenko", 9);
+        dao.deleteEmployee(8);
+        System.out.println(dao.getAllEmployees());
 
-connection();
-}
+
+    }
+
+
+
 
     private static void connection()  {
         try {
@@ -28,8 +43,6 @@ connection();
                 System.out.println(city_name);
 
             }
-
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
