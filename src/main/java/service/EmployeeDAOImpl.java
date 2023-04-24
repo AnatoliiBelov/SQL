@@ -14,8 +14,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         String name = "postgres";
         String password = "CRaZy1992";
         String url = "jdbc:postgresql://localhost:5432/skypro";
-        final Connection connection = DriverManager.getConnection(url, name, password);
-        return connection;
+        return DriverManager.getConnection(url, name, password);
     }
 
     @Override
