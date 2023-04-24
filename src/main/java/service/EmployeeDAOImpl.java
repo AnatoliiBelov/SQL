@@ -22,8 +22,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public void addEmployee(Employee employee) {
         command = "INSERT INTO employee ( first_name, last_name, gender, age, city_id) " +
                 "VALUES ((?),(?), (?), (?), (?));";
-        try {
-            PreparedStatement statement = getConnection().prepareStatement(command);
+        try (PreparedStatement statement = getConnection().prepareStatement(command)) {
             statement.setString(1, employee.getFirst_name());
             statement.setString(2, employee.getLast_name());
             statement.setString(3, employee.getGender());
@@ -43,8 +42,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                 "ON city.city_id=employee.city_id " +
                 " WHERE id = (?);";
         Employee employee1 = null;
-        try {
-            PreparedStatement statement = getConnection().prepareStatement(command);
+        try (PreparedStatement statement = getConnection().prepareStatement(command)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -68,8 +66,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         command = "SELECT* FROM city " +
                 "INNER JOIN employee " +
                 "ON city.city_id=employee.city_id ";
-        try {
-            PreparedStatement statement = getConnection().prepareStatement(command);
+        try (PreparedStatement statement = getConnection().prepareStatement(command)) {
+
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Employee employee = new Employee(resultSet.getString("first_name"),
@@ -89,8 +87,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public void updateEmployee(String columnName, int values, int id) {
         command = "UPDATE employee SET (?)=(?) WHERE id=(?)";
-        try {
-            PreparedStatement statement = getConnection().prepareStatement(command);
+        try (PreparedStatement statement = getConnection().prepareStatement(command)) {
             statement.setString(1, columnName);
             statement.setInt(2, values);
             statement.setInt(3, id);
@@ -99,11 +96,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             e.printStackTrace();
         }
     }
+
     @Override
     public void updateEmployee(String columnName, String values, int id) {
-        command = "UPDATE employee SET "+columnName+"=(?) WHERE id=(?)";
-        try {
-            PreparedStatement statement = getConnection().prepareStatement(command);
+        command = "UPDATE employee SET " + columnName + "=(?) WHERE id=(?)";
+        try (PreparedStatement statement = getConnection().prepareStatement(command)) {
             statement.setString(1, values);
             statement.setInt(2, id);
             statement.executeUpdate();
@@ -111,11 +108,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             e.printStackTrace();
         }
     }
+
     @Override
     public void deleteEmployee(int id) {
         command = "DELETE FROM employee WHERE id=(?)";
-        try {
-            PreparedStatement statement = getConnection().prepareStatement(command);
+        try (PreparedStatement statement = getConnection().prepareStatement(command)) {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
