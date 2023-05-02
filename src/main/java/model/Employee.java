@@ -27,12 +27,12 @@ public class Employee {
 
     }
 
-    public Employee(String firstName, String lastName, String gender, int age, int cityId, int id) {
+    public Employee(String firstName, String lastName, String gender, int age, City city, int id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.age = age;
-        this.city = cityId;
+        this.city = city;
         this.id = id;
     }
 
