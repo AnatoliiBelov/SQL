@@ -7,15 +7,17 @@ import java.util.Objects;
 @Table( name = "employee")
 public class Employee {
     @Column(name = "first_name")
-    private String first_name;
+    private String firstName;
     @Column(name ="last_name" )
-    private String last_name;
+    private String lastName;
     @Column(name="gender")
     private String gender;
     @Column(name = "age")
     private int age;
-    @Column(name= "city_id")
-    private int city;
+
+    @ManyToOne
+    @JoinColumn(name="city_id")
+    private City city;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -25,29 +27,29 @@ public class Employee {
 
     }
 
-    public Employee(String first_name, String last_name, String gender, int age, int city, int id) {
-        this.first_name = first_name;
-        this.last_name = last_name;
+    public Employee(String firstName, String lastName, String gender, int age, int cityId, int id) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.gender = gender;
         this.age = age;
-        this.city = city;
+        this.city = cityId;
         this.id = id;
     }
 
-    public Employee(String first_name, String last_name, String gender, int age,  int city) {
-        this.first_name = first_name;
-        this.last_name = last_name;
+    public Employee(String firstName, String lastName, String gender, int age,  City city) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.gender = gender;
         this.age = age;
         this.city = city;
     }
 
     public String getFirst_name() {
-        return first_name;
+        return firstName;
     }
 
     public String getLast_name() {
-        return last_name;
+        return lastName;
     }
 
     public String getGender() {
@@ -59,7 +61,7 @@ public class Employee {
     }
 
 
-    public int getCity() {
+    public City getCity() {
         return city;
     }
 
@@ -71,19 +73,19 @@ public class Employee {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Employee employee)) return false;
-        return age == employee.age && city == employee.city && id == employee.id && Objects.equals(first_name, employee.first_name) && Objects.equals(last_name, employee.last_name) && Objects.equals(gender, employee.gender);
+        return age == employee.age && city == employee.city && id == employee.id && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(gender, employee.gender);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(first_name, last_name, gender, age, city, id);
+        return Objects.hash(firstName, lastName, gender, age, city, id);
     }
 
     @Override
     public String toString() {
         return "Employee{" +
-                "first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
+                "first_name='" + firstName + '\'' +
+                ", last_name='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", age=" + age +
                 ", city=" + city +

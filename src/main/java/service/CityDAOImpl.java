@@ -1,56 +1,51 @@
 package service;
 
 import config.HibernateSessionFactoryUtil;
-import model.Employee;
+import model.City;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 import java.util.List;
 
-public class EmployeeDAOImpl implements EmployeeDAO {
-
-
+public class CityDAOImpl implements CityDAO {
     @Override
-    public void addEmployee(Employee employee) {
+    public void addCity(City city){
         try (Session session= HibernateSessionFactoryUtil.getSessionFactory().openSession()){
             Transaction transaction = session.beginTransaction();
-            session.save(employee);
+            session.save(city);
             transaction.commit();
         }
-
     }
-
     @Override
-    public Employee getEmployeeForId(int id) {
+    public City getCityForId(int id) {
         try (Session session=HibernateSessionFactoryUtil.getSessionFactory().openSession()){
-            return session.get(Employee.class, id);
+            return session.get(City.class, id);
         }
-
-
     }
 
     @Override
-    public List<Employee> getAllEmployees() {
+    public List<City> getAllCity() {
         try (Session session=HibernateSessionFactoryUtil
                 .getSessionFactory().openSession()){
-            return (List<Employee>)session.createQuery(String.valueOf(Employee.class)).list();
+            return (List<City>)session.createQuery(String.valueOf(City.class)).list();
         }
-         }
+    }
 
     @Override
-    public void updateEmployee(Employee employee) {
+    public void updateCity(City city) {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()){
             Transaction transaction = session.beginTransaction();
-            session.update(employee);
+            session.update(city);
             transaction.commit();
 
         }
 
     }
     @Override
-    public void deleteEmployee(Employee employee) {
+    public void deleteCity(City city) {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.delete(employee);
+            session.delete(city);
             transaction.commit();
 
         }
