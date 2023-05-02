@@ -1,38 +1,35 @@
-import java.sql.*;
+import model.City;
+import model.Employee;
+import service.CityDAO;
+import service.CityDAOImpl;
+import service.EmployeeDAO;
+import service.EmployeeDAOImpl;
+
+import java.util.List;
 
 public class Application {
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
+        CityDAO cityDAO = new CityDAOImpl();
+    EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        //        cityDAO.addCity(new City("Ярославль"));
+        City city = cityDAO.getCityForId(0);
 
-connection();
-}
+//        Employee employee = new Employee("Ольга", "Романовская", "female", 29, city);
+//        employeeDAO.addEmployee(employee);
+        cityDAO.deleteCity(city);
 
-    private static void connection()  {
-        try {
-            String name = "postgres";
-            String password = "CRaZy1992";
-            String url = "jdbc:postgresql://localhost:5432/skypro";
-            final Connection connection = DriverManager.getConnection(url, name, password);
-            PreparedStatement statement = connection.prepareStatement("SELECT first_name, last_name, gender, city_name FROM city " +
-                    "INNER JOIN employee " +
-                    "ON city.city_id=employee.city_id " +
-                    "WHERE id = (?);");
-            statement.setInt(1, 6);
-            final ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {String first_name = "first_name " + resultSet.getString("first_name");
-                String last_name = "last_name " + resultSet.getString("last_name");
-                String gender = "gender " + resultSet.getString("gender");
-                String city_name = "city_name " + resultSet.getString("city_name");
-                System.out.println(first_name);
-                System.out.println(last_name);
-                System.out.println(gender);
-                System.out.println(city_name);
+//        System.out.println(employeeDAO.getEmployeeForId(1));
+//    Employee employee1 = new Employee("Roman", "Vasiljev", "male", 25, );
+//    employeeDAO.deleteEmployee(employee1);
 
-            }
-
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-    }
+//    employeeDAO.addEmployee(employee1);
+//        employeeDAO.getEmployeeForId(5);
+//        List<Employee> employeeList = employeeDAO.getAllEmployees();
+//        for (Employee employee :
+//                employeeList) {
+//            System.out.println(employee);
+//        }
+//        Employee employee2 = new Employee("Olga", "Frolova", "female", 24, 2, 5);
+//        employeeDAO.updateEmployee(employee2);
+//        employeeDAO.deleteEmployee(employee2);
+}}
