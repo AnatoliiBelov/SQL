@@ -1,3 +1,4 @@
+import model.City;
 import model.Employee;
 import service.CityDAO;
 import service.CityDAOImpl;
@@ -10,6 +11,12 @@ public class Application {
     public static void main(String[] args)  {
         CityDAO cityDAO = new CityDAOImpl();
     EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        //        cityDAO.addCity(new City("Ярославль"));
+        City city = cityDAO.getCityForId(0);
+
+//        Employee employee = new Employee("Ольга", "Романовская", "female", 29, city);
+//        employeeDAO.addEmployee(employee);
+        cityDAO.deleteCity(city);
 
 //        System.out.println(employeeDAO.getEmployeeForId(1));
 //    Employee employee1 = new Employee("Roman", "Vasiljev", "male", 25, );

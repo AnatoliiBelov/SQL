@@ -2,6 +2,8 @@ package model;
 
 
 
+import org.hibernate.annotations.OnDelete;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -11,8 +13,10 @@ import java.util.Objects;
 public class City {
     @Id
     @Column(name = "city_id")
+
     private int cityId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "city")
     List<Employee> employeeList;
     @Column(name = "city_name")
     private String cityName;
@@ -20,14 +24,11 @@ public class City {
     public City() {
     }
 
-    public City(int cityId, String cityName) {
-        this.cityId = cityId;
+    public City( String cityName) {
+
         this.cityName = cityName;
     }
 
-    public List<Employee> getEmployeeList() {
-        return employeeList;
-    }
 
     public int getCityId() {
         return cityId;

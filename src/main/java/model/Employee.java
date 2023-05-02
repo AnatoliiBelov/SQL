@@ -16,7 +16,7 @@ public class Employee {
     private int age;
 
     @ManyToOne
-    @JoinColumn(name="city_id")
+    @JoinColumn(name="city_id", referencedColumnName = "city_id" )
     private City city;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
